@@ -2,6 +2,7 @@ class StockData:
 
     def __init__(self, name):
         self.__name = name
+        self.__valid = False
         self.__sector = ""
         self.__industry = ""
         self.__revenue = 0
@@ -16,6 +17,9 @@ class StockData:
 
     def get_name(self):
         return self.__name
+
+    def get_valid(self):
+        return self.__valid
 
     def get_sector(self):
         return self.__sector
@@ -38,7 +42,7 @@ class StockData:
     def get_pe_ratio(self):
         return self.__pe_ratio
 
-    def get_pe_ratio(self):
+    def get_pb_ratio(self):
         return self.__pb_ratio
 
     def get_dividend(self):
@@ -52,6 +56,9 @@ class StockData:
 
     def set_name(self, name):
         self.__name = name
+
+    def set_valid(self, valid):
+        self.__valid = valid
 
     def set_sector(self, sector):
         self.__sector = sector
