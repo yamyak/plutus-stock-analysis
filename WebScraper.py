@@ -9,9 +9,9 @@ class WebScraper:
     def __init__(self):
         self.__url = "https://finance.yahoo.com/quote/"
 
-    def get_data(self, name):
-        html = requests.get(url=self.__url + name + "/", proxies=None)
-        stock = StockData(name)
+    def get_data(self, symbol):
+        html = requests.get(url=self.__url + symbol + "/", proxies=None)
+        stock = StockData(symbol)
 
         if html.status_code == requests.codes.ok:
             json_string = html.text.split('root.App.main =')[1].split('(this)')[0].split(';\n}')[0].strip()
@@ -20,6 +20,7 @@ class WebScraper:
                 json = ujson.loads(json_string)['context']['dispatcher']['stores']['QuoteSummaryStore']
                 clean_string = ujson.dumps(json).replace('{}', 'null')
                 data = ujson.loads(clean_string)
+                test = ujson.dumps(json, indent=4)
 
                 stock.set_valid(True)
 
@@ -52,6 +53,9 @@ class WebScraper:
 
                     if 'marketCap' in price and price['marketCap'] is not None:
                         stock.set_market_cap(price['marketCap']['raw'])
+
+                    if 'shortName' in price and price['shortName'] is not None:
+                        stock.set_name(price['shortName'])
 
                 if 'summaryDetail' in data:
                     detail = data['summaryDetail']

@@ -1,8 +1,9 @@
 class StockData:
 
-    def __init__(self, name):
-        self.__name = name
+    def __init__(self, symbol):
+        self.__symbol = symbol
         self.__valid = False
+        self.__name = ""
         self.__sector = ""
         self.__industry = ""
         self.__revenue = 0
@@ -14,6 +15,9 @@ class StockData:
         self.__dividend = 0
         self.__payout_ratio = 0
         self.__price = 0
+
+    def get_symbol(self):
+        return self.__symbol
 
     def get_name(self):
         return self.__name
@@ -53,6 +57,9 @@ class StockData:
 
     def get_price(self):
         return self.__price
+
+    def set_symbol(self, symbol):
+        self.__symbol = symbol
 
     def set_name(self, name):
         self.__name = name

@@ -1,5 +1,7 @@
 from WebScraper import WebScraper
 from InputParser import InputParser
+from Algorithms.BasicAlgorithm import BasicAlgorithm
+from ExportCSV import ExportCSV
 
 import configparser
 
@@ -9,10 +11,16 @@ if __name__ == "__main__":
     config.read('config.ini')
 
     scraper = WebScraper()
-    stocks = InputParser(config['INPUT']['path'])
+    importer = InputParser(config['INPUT']['path'])
 
     portfolio = []
-    for stock_ticker in stocks.get_stock_list():
-        stock = scraper.get_data(stock_ticker)
+    for symbol in importer.get_stock_list():
+        stock = scraper.get_data(symbol)
         if stock.get_valid():
             portfolio.append(stock)
+
+    algorithm = BasicAlgorithm()
+    output = algorithm.process(portfolio)
+
+    exporter = ExportCSV(config['OUTPUT']['path'])
+    exporter.write(output)
