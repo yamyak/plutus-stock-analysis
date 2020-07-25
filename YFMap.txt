@@ -1,0 +1,13 @@
+[PARAMETERS]
+profit = financialData.grossProfits.raw
+revenue = financialData.totalRevenue.raw
+debt = financialData.totalDebt.raw
+price = financialData.currentPrice.raw
+industry = summaryProfile.industry
+sector = summaryProfile.sector
+market_cap = price.marketCap.raw
+name = price.shortName
+pe_ratio = summaryDetail.trailingPE.raw
+payout_ratio = summaryDetail.payoutRatio.raw
+dividend = summaryDetail.dividendRate.raw
+pb_ratio = defaultKeyStatistics.priceToBook.raw
