@@ -1,9 +1,9 @@
 class StockData:
 
-    def __init__(self):
-        self.__parameters = {}
+    def __init__(self, ticker):
+        self.__parameters = {'ticker': ticker}
 
-    def add_parameter(self, key, value):
+    def set_parameter(self, key, value):
         self.__parameters[key] = value
 
     def get_parameter(self, key):

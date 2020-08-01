@@ -1,5 +1,5 @@
-[DEFAULT_PARAMETERS]
-url = /
+[PROFILE_PARAMETERS]
+url = /profile
 profit = financialData.grossProfits.raw
 revenue = financialData.totalRevenue.raw
 debt = financialData.totalDebt.raw

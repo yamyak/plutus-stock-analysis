@@ -2,8 +2,6 @@ import requests
 import ujson
 import configparser
 
-from StockData import StockData
-
 
 def parse_data(key, data):
     if key in data and data[key] is not None:
@@ -12,16 +10,17 @@ def parse_data(key, data):
     return None
 
 
-class WebScraper:
+class YahooFinanceScraper:
 
     def __init__(self, path):
         self.__url = "https://finance.yahoo.com/quote/"
         self.config = configparser.ConfigParser()
         self.config.read(path)
 
-    def get_data(self, symbol):
-        print(symbol)
-        html = requests.get(url=self.__url + symbol + "/", proxies=None)
+    def get_default_data(self, stock, section):
+        ticker = stock.get_parameter['ticker']
+        print(ticker)
+        html = requests.get(url=self.__url + ticker + self.config[section]['url'], proxies=None)
         stock = None
 
         if html.status_code == requests.codes.ok:
@@ -32,11 +31,11 @@ class WebScraper:
                 clean_string = ujson.dumps(json).replace('{}', 'null')
                 data = ujson.loads(clean_string)
 
-                stock = StockData()
-                stock.add_parameter('symbol', symbol)
+                for parameter in self.config[section]:
+                    if parameter == 'url':
+                        continue
 
-                for parameter in self.config['PARAMETERS']:
-                    key = self.config['PARAMETERS'][parameter]
+                    key = self.config[section][parameter]
 
                     found = True
                     subsection = data
@@ -53,6 +52,10 @@ class WebScraper:
                     stock.add_parameter(parameter, value)
 
         return stock
+
+    def get_data(self, stock):
+        for section in self.config.sections():
+            self.get_default_data(stock, section)
 
 
 if __name__ == "__main__":
