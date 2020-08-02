@@ -1,6 +1,7 @@
+import configparser
+
 import requests
 import ujson
-import configparser
 
 
 def parse_data(key, data):
@@ -18,8 +19,8 @@ class YahooFinanceScraper:
         self.__config.read(path)
 
     def parse_page_data(self, stock, section):
-        ticker = stock.get_parameter['ticker']
-        print(ticker)
+        ticker = stock.get_parameter('ticker')
+        print('YF: ' + ticker)
         html = requests.get(url=self.__url + ticker + self.__config[section]['url'], proxies=None)
 
         if html.status_code == requests.codes.ok:
@@ -48,7 +49,7 @@ class YahooFinanceScraper:
                     if found:
                         value = subsection
 
-                    stock.add_parameter(parameter, value)
+                    stock.set_parameter(parameter, value)
 
     def get_data(self, stock):
         for section in self.__config.sections():

@@ -1,7 +1,5 @@
 [PROFILE_PARAMETERS]
 url = /profile
-pe_ratio = P/E Current
-pb_ratio = Price to Book Ratio
 current_ratio = Current Ratio
 quick_ratio = Quick Ratio
 gross_margin = Gross Margin
