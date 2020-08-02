@@ -1,4 +1,5 @@
 from YahooFinanceScraper import YahooFinanceScraper
+from MarketWatchScraper import MarketWatchScraper
 from InputParser import InputParser
 from Algorithms.BasicAlgorithm import BasicAlgorithm
 from ExportCSV import ExportCSV
@@ -11,12 +12,14 @@ if __name__ == "__main__":
     config.read('config.ini')
 
     yfScraper = YahooFinanceScraper(config['YF_MAP']['path'])
+    mwScraper = MarketWatchScraper(config['MW_MAP']['path'])
     importer = InputParser(config['STOCK_LIST']['path'])
 
     portfolio = []
     for symbol in importer.get_stock_list():
         stock = StockData(symbol)
         yfScraper.get_data(stock)
+        mwScraper.get_data(stock)
         if stock is not None:
             portfolio.append(stock)
 

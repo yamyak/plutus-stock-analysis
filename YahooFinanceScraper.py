@@ -14,14 +14,13 @@ class YahooFinanceScraper:
 
     def __init__(self, path):
         self.__url = "https://finance.yahoo.com/quote/"
-        self.config = configparser.ConfigParser()
-        self.config.read(path)
+        self.__config = configparser.ConfigParser()
+        self.__config.read(path)
 
-    def get_default_data(self, stock, section):
+    def parse_page_data(self, stock, section):
         ticker = stock.get_parameter['ticker']
         print(ticker)
-        html = requests.get(url=self.__url + ticker + self.config[section]['url'], proxies=None)
-        stock = None
+        html = requests.get(url=self.__url + ticker + self.__config[section]['url'], proxies=None)
 
         if html.status_code == requests.codes.ok:
             json_string = html.text.split('root.App.main =')[1].split('(this)')[0].split(';\n}')[0].strip()
@@ -31,11 +30,11 @@ class YahooFinanceScraper:
                 clean_string = ujson.dumps(json).replace('{}', 'null')
                 data = ujson.loads(clean_string)
 
-                for parameter in self.config[section]:
+                for parameter in self.__config[section]:
                     if parameter == 'url':
                         continue
 
-                    key = self.config[section][parameter]
+                    key = self.__config[section][parameter]
 
                     found = True
                     subsection = data
@@ -51,11 +50,9 @@ class YahooFinanceScraper:
 
                     stock.add_parameter(parameter, value)
 
-        return stock
-
     def get_data(self, stock):
-        for section in self.config.sections():
-            self.get_default_data(stock, section)
+        for section in self.__config.sections():
+            self.parse_page_data(stock, section)
 
 
 if __name__ == "__main__":

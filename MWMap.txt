@@ -1,14 +1,14 @@
 [PROFILE_PARAMETERS]
 url = /profile
-profit = financialData.grossProfits.raw
-revenue = financialData.totalRevenue.raw
-debt = financialData.totalDebt.raw
-price = financialData.currentPrice.raw
-industry = summaryProfile.industry
-sector = summaryProfile.sector
-market_cap = price.marketCap.raw
-name = price.shortName
-pe_ratio = summaryDetail.trailingPE.raw
-payout_ratio = summaryDetail.payoutRatio.raw
-dividend = summaryDetail.dividendRate.raw
-pb_ratio = defaultKeyStatistics.priceToBook.raw
+pe_ratio = P/E Current
+pb_ratio = Price to Book Ratio
+current_ratio = Current Ratio
+quick_ratio = Quick Ratio
+gross_margin = Gross Margin
+operating_margin = Operating Margin
+debt_to_equity = Total Debt to Total Equity
+debt_ratio = Total Debt to Total Assets
+net_margin = Net Margin
+receivables_turnover = Receivables Turnover
+asset_turnover = Total Asset Turnover
+return_on_equity = Return on Equity
